@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Write your code below -->
+    <div><h1>Dashboard</h1></div>
+    <form>
+      <label for="amount">Choose Expense amount</label>
+      <input type="number" name="amount" id="amount" />
+      <br /><br />
+      <label for="description">Description</label>
+      <input type="text" name="description" id="description" />
+      <br /><br />
+      <label for="category">Choose category</label>
+      <select id="category">
+        <option value="fuel">fuel</option>
+        <option value="entertainment" id="entertainment">entertainment</option>
+        <option value="groceries" id="groceries">groceries</option>
+        <option value="essentials" id="essentials">essentials</option>
+      </select>
+      <br /><br />
+      <button type="submit">Add</button>
+    </form>
+    <ul></ul>
+  </body>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</html>
