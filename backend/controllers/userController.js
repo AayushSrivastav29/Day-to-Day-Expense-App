@@ -1,4 +1,5 @@
 const Users = require("../models/userModel");
+const bcrypt = require("bcrypt");
 
 //getbyEmail
 const findUser = async (req, res) => {
@@ -10,14 +11,20 @@ const findUser = async (req, res) => {
         email: email,
       },
     });
-    if (user.password === password) {
-      return res.status(200).json(user);
-    } else {
-      return res.status(404).send(`password incorrect`);
-    }
+    bcrypt.compare(password, user.password, function (err, result) {
+      // result == true
+      if (err) {
+        return res.status(401).send(`password incorrect`); 
+        
+      }
+      if (result) {
+        return res.status(200).send("User logged in"); 
+      }
+    });
+
   } catch (error) {
     console.log(error);
-    res.status(500).send(`No user exsits`, error);
+    res.status(404).send(`No user exsits`, error);
   }
 };
 
@@ -26,20 +33,24 @@ const createUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    const user = await Users.create({
-      name: name,
-      email: email,
-      password: password,
+    const saltRounds = 10;
+    bcrypt.hash(password, saltRounds, async (err, hash) => {
+      // Store hash in your password DB.
+      console.log("err in pasword hashing", err);
+      await Users.create({
+        name: name,
+        email: email,
+        password: hash,
+      });
+      res.status(201).send(`user signed up successfully`);
     });
-
-    res.status(201).send(`user signed up successfully`);
   } catch (error) {
     console.log(error);
     res.status(500).send(`make sure to use unique email id`);
   }
 };
 
-module.exports={
-    findUser,
-    createUser
-}
+module.exports = {
+  findUser,
+  createUser,
+};
