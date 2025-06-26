@@ -14,15 +14,15 @@ async function loginDetails(event) {
     password,
   };
 
-  axios
+  await axios
     .post(`http://localhost:3000/api/user/find`, userDetails)
     .then((result) => {
       console.log(result);
       alert(result.data);
-      // window.location.href = "/app/dashboard.html";
-      //window.location.href = "http://localhost:3000/app/dashboard.html";
+      window.location.href = "/";
     })
     .catch((err) => {
+      console.log(err);
       console.log(err.response.data);
       const failedText = document.createElement("p");
       failedText.textContent = `${err.response.data}`;

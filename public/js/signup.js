@@ -23,6 +23,8 @@ async function checkDetails(event) {
     );
     console.log(result);
     alert(result.data);
+    window.location.href = ".../view/dashboard.html";
+
     //window.location.href = "/app/dashboard.html"; // Redirect on success
   } catch (err) {
     console.log(err.response.data);
